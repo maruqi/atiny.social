@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,23 +8,21 @@ datasource db {
 }
 
 model Domain {
-  id    String @id @default(uuid())
-  name  String @unique
-  users User[]
-
+  id        String   @id @default(uuid())
+  name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  users     User[]
 }
 
 model User {
-  id       String @id @default(uuid())
-  did      String
-  handle   String
-  domainId String
-  domain   Domain @relation(fields: [domainId], references: [id])
-
+  id        String   @id @default(uuid())
+  did       String
+  handle    String
+  domainId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  domain    Domain   @relation(fields: [domainId], references: [id])
 
   @@unique([handle, domainId])
 }
